@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Footer, Header } from "./components";
 import "./globals.css";
 import { site } from "./site-data";
+import { DM_Sans } from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,13 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "800"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
 
 export default function RootLayout({
   children,
@@ -46,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="id" data-scroll-behavior="smooth" className={dmSans.variable}>
       <body>
         <Header />
         <main>{children}</main>
