@@ -1,13 +1,6 @@
 import Link from "next/link";
-import { Button, Card, JsonLd, PageHero, Section } from "./components";
-import {
-  blogIdeas,
-  pricing,
-  seoMatrix,
-  services,
-  site,
-  sitemapPlan,
-} from "./site-data";
+import { Button, JsonLd, PageHero, Section } from "./components";
+import { pricing, services, site } from "./site-data";
 
 export default function Home() {
   return (
@@ -159,39 +152,191 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sitemap */}
-      <Section
-        title="Arsitektur website lengkap"
-        description="Rancangan sitemap ini disiapkan untuk membangun kepercayaan, menangkap pencarian lokal, dan mengarahkan pengunjung ke konsultasi."
-      >
-        <div className="grid gap-px bg-gray-200 md:grid-cols-2">
-          {sitemapPlan.map((group) => (
-            <div key={group.group} className="bg-white p-8">
+      {/* Portfolio preview */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-8 py-20">
+          <div className="border-b border-gray-200 pb-10">
+            <div className="flex items-center gap-3">
+              <div className="h-px w-8 bg-amber-500" />
               <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
-                {group.group}
+                Portofolio
               </p>
-              <div className="mt-6 grid gap-5">
-                {group.pages.map((page) => (
-                  <div
-                    key={page.href}
-                    className="border-l-2 border-gray-100 pl-4 transition-colors hover:border-amber-500"
-                  >
-                    <Link
-                      href={page.href}
-                      className="text-sm font-bold text-gray-900 hover:text-amber-700"
-                    >
-                      {page.title}
-                    </Link>
-                    <p className="mt-1 text-xs leading-5 text-gray-500">
-                      {page.purpose}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
-          ))}
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
+              Yang pernah kami kerjakan
+            </h2>
+            <p className="mt-3 max-w-lg text-sm leading-7 text-gray-500">
+              Dari UMKM hingga event skala nasional — setiap proyek dikerjakan
+              dengan pendekatan yang sama: jelas, rapi, dan siap konversi.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                title: "Bapperida Papua",
+                tag: "Pemerintahan",
+              },
+              {
+                title: "Malabar Trail Run",
+                tag: "Event & Ticketing",
+              },
+              {
+                title: "Roxgym",
+                tag: "Fitness & Wellness",
+              },
+              {
+                title: "NSC Bantu Perizinan",
+                tag: "Jasa & Konsultasi",
+              },
+              {
+                title: "Million Candles",
+                tag: "E-commerce",
+              },
+              {
+                title: "Global Inti Sekawan",
+                tag: "Enterprise",
+              },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                href="/portofolio"
+                className="group border border-gray-200 p-7 transition-all hover:border-amber-500 hover:shadow-lg"
+              >
+                <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
+                  {item.tag}
+                </p>
+                <h3 className="mt-3 text-lg font-extrabold text-gray-900 group-hover:text-amber-700 transition-colors">
+                  {item.title}
+                </h3>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link
+              href="/portofolio"
+              className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-gray-900 uppercase hover:text-amber-700 transition-colors"
+            >
+              Lihat semua portofolio
+              <span>→</span>
+            </Link>
+          </div>
         </div>
-      </Section>
+      </section>
+
+      {/* Testimonial highlight */}
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-7xl px-8 py-20">
+          <div className="border-b border-gray-200 pb-10">
+            <div className="flex items-center gap-3">
+              <div className="h-px w-8 bg-amber-500" />
+              <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
+                Testimoni
+              </p>
+            </div>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
+              Kata mereka yang sudah pakai
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                quote: "Prosesnya cepat, hasilnya rapi. Saya langsung dapat pesanan baru setelah website tayang.",
+                author: "Pemilik Laundry, Sleman",
+              },
+              {
+                quote: "Akhirnya punya website yang gak ribet. Tim-nya sabar banget ngajarin saya kelola sendiri.",
+                author: "Pemilik Gym, Depok",
+              },
+              {
+                quote: "Dari diskusi pertama sampai tayang cuma 5 hari. Harga jelas, revisi cepat. Recommended!",
+                author: "Event Organizer, Jogja",
+              },
+            ].map((item) => (
+              <div key={item.author} className="bg-white border border-gray-200 p-7">
+                <p className="text-4xl font-serif text-amber-500 leading-none">&ldquo;</p>
+                <p className="mt-2 text-sm leading-7 text-gray-600 italic">
+                  {item.quote}
+                </p>
+                <div className="mt-6 h-px w-6 bg-amber-500" />
+                <p className="mt-4 text-xs font-bold tracking-wide text-gray-900">
+                  {item.author}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link
+              href="/testimoni"
+              className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-gray-900 uppercase hover:text-amber-700 transition-colors"
+            >
+              Baca testimoni lengkap
+              <span>→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ preview */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-3xl px-8 py-20">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-3">
+              <div className="h-px w-8 bg-amber-500" />
+              <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
+                FAQ
+              </p>
+              <div className="h-px w-8 bg-amber-500" />
+            </div>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
+              Pertanyaan umum
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-4">
+            {[
+              {
+                q: "Berapa lama proses pembuatan website?",
+                a: "Rata-rata 5-10 hari kerja tergantung kompleksitas halaman dan konten yang perlu disiapkan.",
+              },
+              {
+                q: "Apakah domain dan hosting sudah termasuk?",
+                a: "Ya, tahun pertama domain dan hosting sudah termasuk dalam paket. Perpanjangan tahun berikutnya dikenakan biaya terpisah.",
+              },
+              {
+                q: "Apakah bisa minta revisi setelah website tayang?",
+                a: "Setiap paket sudah termasuk 3-5 kali revisi. Revisi tambahan di luar paket dikenakan biaya sesuai kesepakatan.",
+              },
+              {
+                q: "Website saya bisa diurus sendiri setelah jadi?",
+                a: "Bisa. Kami berikan akses penuh ke dashboard admin dan panduan singkat. Tidak ada lock-in vendor.",
+              },
+            ].map((item) => (
+              <details
+                key={item.q}
+                className="group border border-gray-200 p-5 open:border-amber-500 transition-colors"
+              >
+                <summary className="flex cursor-pointer items-center justify-between gap-4 text-sm font-bold text-gray-900 list-none">
+                  {item.q}
+                  <span className="shrink-0 text-xs text-gray-400 group-open:rotate-180 transition-transform">
+                    ▼
+                  </span>
+                </summary>
+                <p className="mt-4 text-sm leading-7 text-gray-500 border-t border-gray-100 pt-4">
+                  {item.a}
+                </p>
+              </details>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link
+              href="/faq"
+              className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-gray-900 uppercase hover:text-amber-700 transition-colors"
+            >
+              Lihat semua FAQ
+              <span>→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Pricing */}
       <section className="bg-gray-50">
@@ -268,94 +413,6 @@ export default function Home() {
                     variant={i === 1 ? "solid" : "outline"}
                   />
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SEO Matrix */}
-      <Section
-        title="Kerangka Local SEO"
-        description="Matrix ini menjadi arahan metadata halaman utama agar kata kunci lokal tetap fokus."
-      >
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[760px] border-collapse border border-gray-200 text-left text-sm">
-            <thead>
-              <tr className="bg-gray-950 text-white">
-                <th className="border-r border-gray-700 p-5 text-xs font-bold tracking-widest uppercase">
-                  Halaman
-                </th>
-                <th className="border-r border-gray-700 p-5 text-xs font-bold tracking-widest uppercase">
-                  Meta Title
-                </th>
-                <th className="border-r border-gray-700 p-5 text-xs font-bold tracking-widest uppercase">
-                  Meta Description
-                </th>
-                <th className="p-5 text-xs font-bold tracking-widest uppercase">
-                  Keyword
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {seoMatrix.map((row, i) => (
-                <tr
-                  key={row.page}
-                  className={`border-t border-gray-200 ${
-                    i % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  }`}
-                >
-                  <td className="border-r border-gray-200 p-5 text-xs font-bold tracking-wide text-gray-900">
-                    {row.page}
-                  </td>
-                  <td className="border-r border-gray-200 p-5 text-xs text-gray-600">
-                    {row.title}
-                  </td>
-                  <td className="border-r border-gray-200 p-5 text-xs text-gray-600">
-                    {row.description}
-                  </td>
-                  <td className="p-5">
-                    <span className="bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-800">
-                      {row.keyword}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Section>
-
-      {/* Blog ideas — dark */}
-      <section className="bg-gray-950">
-        <div className="mx-auto max-w-7xl px-8 py-20">
-          <div className="border-b border-gray-800 pb-10">
-            <div className="flex items-center gap-3">
-              <div className="h-px w-8 bg-amber-500" />
-              <p className="text-xs font-bold tracking-widest text-amber-500 uppercase">
-                Content Strategy
-              </p>
-            </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white md:text-4xl">
-              Topical authority blog
-            </h2>
-            <p className="mt-3 max-w-lg text-sm leading-7 text-gray-400">
-              Konten edukasi ditujukan untuk menarik UMKM yang sedang mencari
-              solusi digital di Jogja.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-px bg-gray-800 md:grid-cols-2">
-            {blogIdeas.map((idea, i) => (
-              <div
-                key={idea}
-                className="flex items-start gap-5 bg-gray-950 p-7"
-              >
-                <p className="pt-0.5 text-xs font-bold tabular-nums text-gray-600">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <p className="text-sm font-semibold leading-6 text-gray-200">
-                  {idea}
-                </p>
               </div>
             ))}
           </div>
