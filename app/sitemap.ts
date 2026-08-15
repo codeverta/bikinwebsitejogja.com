@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts, getTotalBlogPages } from "./blog/blog-data";
 import { sitemapPlan, site } from "./site-data";
+import projectData from "../projects.json";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -31,5 +32,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  return [...staticPages, ...paginatedBlogPages, ...blogPages];
+  const projectPages: MetadataRoute.Sitemap = [
+    {
+      url: `${site.url}/projects`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    ...projectData.projects.map(({ product }) => ({
+      url: `${site.url}/projects/${product.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  return [...staticPages, ...projectPages, ...paginatedBlogPages, ...blogPages];
 }

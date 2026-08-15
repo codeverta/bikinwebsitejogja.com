@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { JsonLd, PageHero, Section } from "../components";
+import { JsonLd, Section } from "../components";
 import { site } from "../site-data";
 import { BlogCard, Pagination } from "./blog-components";
 import { getAllPosts, getPaginatedPosts, getTotalBlogPages } from "./blog-data";
+import { PageHeroCarousel } from "../page-hero-carousel";
+
+const blogSlides = [
+  { image: "/assets/images/openai-codex.png", label: "TEKNOLOGI", title: "AI untuk mempercepat pertumbuhan bisnis lokal" },
+  { image: "/assets/images/meeting.jpeg", label: "STRATEGI", title: "Dari ide menjadi website yang siap dipasarkan" },
+  { image: "/assets/images/homepage-souvenirlilin-id.png", label: "STUDI KASUS", title: "Membangun kepercayaan melalui pengalaman digital" },
+];
 
 export const metadata: Metadata = {
   title: "Blog Website dan Digital Marketing UMKM Jogja",
@@ -38,11 +45,12 @@ export default function BlogPage() {
           })),
         }}
       />
-      <PageHero
-        eyebrow="Blog UMKM Jogja"
-        title="Panduan website, Local SEO, dan digital marketing untuk bisnis lokal."
-        description="Artikel disusun untuk menjawab pertanyaan calon klien, menangkap pencarian lokal, dan membantu UMKM Jogja mengambil keputusan digital dengan lebih percaya diri."
-      />
+      <section className="blog-hero">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1fr_.9fr] lg:items-center lg:py-28">
+          <div><p className="section-kicker text-fuchsia-700">Insight bisnis lokal</p><h1 className="mt-5 max-w-4xl text-balance text-5xl font-extrabold leading-[1.06] tracking-[-.045em] md:text-7xl">Ide yang membuat bisnis Jogja lebih mudah ditemukan.</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">Panduan website, Local SEO, dan strategi digital praktis untuk pemilik usaha di Yogyakarta.</p></div>
+          <PageHeroCarousel slides={blogSlides} tone="blog" />
+        </div>
+      </section>
       <Section
         title="Artikel terbaru"
         description="Konten evergreen dengan intent lokal dan informasional untuk membangun topical authority di Yogyakarta."

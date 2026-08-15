@@ -13,7 +13,7 @@ export const site = {
 export const navigation = [
   { label: "Beranda", href: "/" },
   { label: "Tentang", href: "/tentang-kami" },
-  { label: "Layanan", href: "/layanan/company-profile" },
+  { label: "Project", href: "/projects" },
   { label: "Harga", href: "/harga-paket" },
   { label: "Blog", href: "/blog" },
   { label: "Kontak", href: "/hubungi-kami" },

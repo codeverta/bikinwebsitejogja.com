@@ -1,35 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Footer, Header } from "./components";
 import "./globals.css";
 import { site } from "./site-data";
-import { DM_Sans } from "next/font/google";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Bikin Website Jogja | Murah, Cepat, Profesional",
+    default: "Jasa Bikin Website Jogja untuk Bisnis Lokal",
     template: "%s | Bikin Website Jogja",
   },
   description:
-    "Jasa bikin website Jogja untuk UMKM, company profile, landing page, dan toko online. Cepat, ramah, profesional.",
+    "Jasa bikin website Jogja untuk UMKM dan bisnis lokal. Desain profesional, SEO lokal, dan siap mendatangkan chat WhatsApp.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Bikin Website Jogja",
+    title: "Jasa Bikin Website Jogja untuk Bisnis Lokal",
     description:
-      "Solusi website terjangkau, cepat, bersahabat, dan profesional untuk bisnis lokal Yogyakarta.",
+      "Website profesional, mudah ditemukan, dan siap mendatangkan pelanggan untuk bisnis lokal Yogyakarta.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Bikin Website Jogja" }],
     url: site.url,
     siteName: site.name,
     locale: "id_ID",
@@ -39,22 +28,19 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  twitter: { card: "summary_large_image", title: "Jasa Bikin Website Jogja", description: "Website profesional untuk bisnis lokal Yogyakarta.", images: ["/og-image.png"] },
 };
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "800"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" data-scroll-behavior="smooth" className={dmSans.variable}>
+    <html lang="id" data-scroll-behavior="smooth">
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+      <link rel="manifest" href="/site.webmanifest"></link>
       <body>
         <Header />
         <main>{children}</main>

@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
-import { Button, PageHero, Section } from "../components";
+import Link from "next/link";
+import { Button, Section } from "../components";
 import { pricing, site } from "../site-data";
+import { PageHeroCarousel } from "../page-hero-carousel";
+
+const pricingSlides = [
+  { image: "/assets/property-listing/preview.png", label: "PAKET BASIC", title: "Website profesional untuk mulai dikenal" },
+  { image: "/assets/e-commerce/landing-page.png", label: "PAKET PRO", title: "Website lengkap yang siap dipromosikan" },
+  { image: "/assets/erp/homepage.png", label: "PAKET BISNIS", title: "Sistem khusus untuk operasional yang lebih besar" },
+];
 
 export const metadata: Metadata = {
   title: "Harga Paket Website Jogja | Basic, Pro, Bisnis",
@@ -11,12 +19,14 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Harga & paket"
-        title="Paket website yang jelas, fleksibel, dan bisa disesuaikan."
-        description="Mulai dari website sederhana untuk validasi bisnis sampai toko online dengan katalog dan alur order. Semua paket dibuat agar pemilik usaha mudah memahami apa yang didapat."
-      />
-      <Section title="Tabel paket harga" description="Harga berikut adalah estimasi awal. Setelah konsultasi, kami susun ruang lingkup final agar tidak ada biaya yang samar.">
+      <section className="pricing-hero">
+        <div className="pricing-orb pricing-orb-one" /><div className="pricing-orb pricing-orb-two" />
+        <div className="relative mx-auto max-w-6xl px-6 py-20 text-center md:py-28">
+          <div className="mx-auto max-w-4xl"><span className="pricing-badge">PAKET WEBSITE JOGJA · MULAI RP1,5 JUTA</span><h1 className="mt-7 text-balance text-5xl font-extrabold leading-[1.04] tracking-[-.05em] text-white md:text-7xl">Harga jelas. Website siap bekerja untuk bisnis.</h1><p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-violet-100">Pilih paket awal yang paling dekat dengan kebutuhan Anda. Lingkup final tetap fleksibel setelah konsultasi.</p><div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row"><Link href="#paket" className="button-white h-14 px-8">Bandingkan Paket ↓</Link><Link href={site.whatsapp} className="button-ghost h-14 px-8">Tanya via WhatsApp →</Link></div></div>
+          <div className="mx-auto mt-14 max-w-4xl"><PageHeroCarousel slides={pricingSlides} tone="pricing" /></div>
+        </div>
+      </section>
+      <div id="paket"><Section title="Tabel paket harga" description="Harga berikut adalah estimasi awal. Setelah konsultasi, kami susun ruang lingkup final agar tidak ada biaya yang samar.">
         <div className="overflow-x-auto rounded-lg border border-stone-200 bg-white">
           <table className="w-full min-w-[820px] text-left text-sm">
             <thead className="bg-stone-100 text-stone-900">
@@ -49,7 +59,7 @@ export default function PricingPage() {
             </tbody>
           </table>
         </div>
-      </Section>
+      </Section></div>
     </>
   );
 }

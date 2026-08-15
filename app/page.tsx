@@ -1,6 +1,46 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Button, JsonLd, PageHero, Section } from "./components";
-import { pricing, services, site } from "./site-data";
+import { JsonLd } from "./components";
+import { site } from "./site-data";
+import projectData from "../projects.json";
+import { HomeHeroCarousel } from "./hero-carousel";
+
+const trustedBrands = [
+  { name: "Universitas Negeri Yogyakarta", image: "/assets/images/uny.png" },
+  { name: "Kementerian Komunikasi dan Digital", image: "/assets/images/komdigi.png" },
+  { name: "Bapperida", image: "/assets/images/bapperida.png" },
+  { name: "Tribunnews", image: "/assets/images/tribunnews.svg" },
+  { name: "NSC", image: "/assets/images/nsc.png" },
+  { name: "Million Candles", image: "/assets/images/souvenirlilin.png" },
+];
+
+const featuredIds = [
+  "laundry-management-system",
+  "coffee-shop-pos-management-system",
+  "gym-management-system",
+];
+const showcase = featuredIds.map((id, index) => ({
+  ...projectData.projects.find(({ product }) => product.id === id)!.product,
+  color: ["project-card-lilac", "project-card-peach", "project-card-mint"][index],
+}));
+
+const process = [
+  {
+    step: "01",
+    title: "Ceritakan bisnis Anda",
+    body: "Kita ngobrol santai soal usaha, pelanggan, target, dan masalah yang ingin diselesaikan.",
+  },
+  {
+    step: "02",
+    title: "Kami susun strateginya",
+    body: "Mulai dari struktur halaman, desain, copywriting, sampai alur pengunjung menuju WhatsApp.",
+  },
+  {
+    step: "03",
+    title: "Website siap bekerja",
+    body: "Setelah revisi dan pengecekan, website tayang dan siap ditemukan pelanggan di Jogja.",
+  },
+];
 
 export default function Home() {
   return (
@@ -21,428 +61,110 @@ export default function Home() {
             "Gunungkidul",
             "Kulon Progo",
           ],
-          serviceType: [
-            "Jasa pembuatan website",
-            "Website company profile",
-            "Landing page promosi",
-            "Website toko online",
-          ],
+          serviceType: "Jasa pembuatan website untuk bisnis lokal Jogja",
         }}
       />
 
-      <PageHero
-        eyebrow="Jasa website lokal Yogyakarta"
-        title="Bikin Website Jogja yang rapi, cepat online, dan gampang dipakai."
-        description="Kami membantu UMKM, bisnis lokal, dan profesional di Jogja punya website company profile, landing page promosi, atau toko online yang jelas pesannya, enak dibuka di HP, dan siap diarahkan ke WhatsApp."
-      />
+      <section className="hero-shell">
+        <div className="hero-glow hero-glow-one" />
+        <div className="hero-glow hero-glow-two" />
+        <div className="hero-grid" />
+        <div className="relative mx-auto flex min-h-[760px] max-w-7xl flex-col items-center px-6 pb-24 pt-24 text-center md:min-h-[830px] md:pt-32">
+          <Link href="/harga-paket" className="announcement-pill">
+            <span>BARU</span>
+            Paket website bisnis lokal mulai Rp1,5 juta
+            <b>→</b>
+          </Link>
 
-      {/* Thin rule / statistics bar */}
-      <div className="border-b border-t border-gray-100 bg-white">
-        <div className="mx-auto grid max-w-7xl divide-x divide-gray-100 px-8 md:grid-cols-4">
-          {[
-            { value: "100+", label: "Proyek selesai" },
-            { value: "5 th", label: "Pengalaman operasional" },
-            { value: "3 hari", label: "Rata-rata waktu revisi" },
-            { value: "100%", label: "Klien mendapatkan akses penuh" },
-          ].map((stat) => (
-            <div key={stat.label} className="px-8 py-8 first:pl-0 last:pr-0">
-              <p className="text-3xl font-extrabold text-gray-900">
-                {stat.value}
-              </p>
-              <p className="mt-1 text-xs font-semibold tracking-wider text-gray-400 uppercase">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+          <div className="mt-10 w-full"><HomeHeroCarousel /></div>
         </div>
-      </div>
+      </section>
 
-      {/* Services */}
-      <Section
-        title="Layanan utama"
-        description="Pilih jenis website sesuai tujuan bisnis. Kami bantu dari struktur, copywriting, desain, hingga SEO dasar."
-      >
-        <div className="grid divide-x divide-gray-200 border border-gray-200 md:grid-cols-3">
-          {services.map((service, i) => (
-            <div key={service.href} className="p-8">
-              <p className="text-xs font-bold tracking-widest text-gray-300">
-                {String(i + 1).padStart(2, "0")}
-              </p>
-              <h3 className="mt-4 text-xl font-extrabold text-gray-900">
-                {service.title}
-              </h3>
-              <div className="mt-2 h-px w-6 bg-amber-500" />
-              <p className="mt-4 text-sm leading-7 text-gray-500">
-                {service.summary}
-              </p>
-              <ul className="mt-6 grid gap-2 border-t border-gray-100 pt-6">
-                {service.bullets.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-2 text-sm text-gray-500"
-                  >
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-none bg-amber-500" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={service.href}
-                className="mt-8 inline-flex items-center gap-2 text-xs font-bold tracking-widest text-gray-900 uppercase transition-opacity hover:opacity-60"
-              >
-                Lihat detail
-                <span>→</span>
-              </Link>
-            </div>
-          ))}
+      <section className="logo-strip">
+        <p>DIBUAT UNTUK BISNIS LOKAL YANG TERUS TUMBUH</p>
+        <div className="brand-proof-grid" aria-label="Brand dan institusi dalam portofolio kami">
+          {trustedBrands.map((brand) => <div key={brand.name} className="brand-proof-item"><Image src={brand.image} alt={brand.name} width={180} height={70} sizes="150px" /></div>)}
         </div>
-      </Section>
+      </section>
 
-      {/* Why us — dark section */}
-      <section className="bg-gray-950">
-        <div className="mx-auto max-w-7xl px-8 py-20">
-          <div className="border-b border-gray-800 pb-10">
-            <div className="flex items-center gap-3">
-              <div className="h-px w-8 bg-amber-500" />
-              <p className="text-xs font-bold tracking-widest text-amber-500 uppercase">
-                Keunggulan
-              </p>
-            </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white md:text-4xl">
-              Kenapa memilih kami?
-            </h2>
+      <section className="section-light overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="section-kicker">Website bukan sekadar pajangan</p>
+            <h2 className="section-title mt-4 text-balance">Satu tempat untuk bikin pelanggan yakin.</h2>
+            <p className="section-copy mx-auto mt-6 max-w-2xl">
+              Dari pertama ditemukan di Google sampai akhirnya chat dan order,
+              setiap bagian website dirancang untuk membantu bisnis lokal Anda.
+            </p>
           </div>
-          <div className="mt-12 grid gap-px bg-gray-800 md:grid-cols-4">
-            {[
-              {
-                num: "01",
-                title: "Bahasa ramah, bebas jargon rumit",
-                body: "Komunikasi yang jelas sejak hari pertama hingga website tayang.",
-              },
-              {
-                num: "02",
-                title: "Struktur halaman siap konversi",
-                body: "Setiap elemen ditempatkan agar pengunjung tahu langkah selanjutnya.",
-              },
-              {
-                num: "03",
-                title: "SEO lokal Yogyakarta",
-                body: "Halaman dioptimasi agar muncul di pencarian pelanggan terdekat.",
-              },
-              {
-                num: "04",
-                title: "Proses jelas dari awal sampai tayang",
-                body: "Tidak ada kejutan biaya atau waktu—semua terdokumentasi.",
-              },
-            ].map((item) => (
-              <div key={item.num} className="bg-gray-950 p-8">
-                <p className="text-xs font-bold tracking-widest text-gray-600">
-                  {item.num}
-                </p>
-                <h3 className="mt-4 text-base font-bold text-white">
-                  {item.title}
-                </h3>
-                <div className="mt-2 h-px w-6 bg-amber-500" />
-                <p className="mt-4 text-sm leading-7 text-gray-400">
-                  {item.body}
-                </p>
+          <div className="feature-grid mt-16">
+            <article className="feature-card feature-main">
+              <span className="feature-icon">↗</span>
+              <div><p className="section-kicker">Tampil profesional</p><h3>Berikan kesan pertama yang meyakinkan.</h3><p>Desain modern, cepat dibuka di HP, dan sesuai karakter bisnis Anda.</p></div>
+              <div className="mini-browser">
+                <div className="mini-browser-bar"><i /><i /><i /></div>
+                <Image src="/assets/property-listing/preview.png" alt="Contoh website properti profesional" width={1658} height={949} sizes="(max-width: 768px) 90vw, 56vw" />
               </div>
-            ))}
+            </article>
+            <article className="feature-card feature-small feature-purple">
+              <span className="feature-icon">⌖</span>
+              <div><p className="section-kicker">SEO lokal</p><h3>Mudah ditemukan orang sekitar Jogja.</h3><p>Struktur website disiapkan untuk pencarian bisnis lokal.</p></div>
+              <div className="search-card"><small>Google</small><p>jasa terdekat di jogja</p><span>Bisnis Anda</span></div>
+            </article>
+            <article className="feature-card feature-small feature-mint">
+              <span className="feature-icon">◉</span>
+              <div><p className="section-kicker">Siap konversi</p><h3>Pengunjung tahu harus klik ke mana.</h3><p>CTA jelas untuk chat, order, reservasi, atau minta penawaran.</p></div>
+              <div className="chat-card"><span>Halo! Bisa konsultasi dulu?</span><b>Balas via WhatsApp →</b></div>
+            </article>
           </div>
         </div>
       </section>
 
-      {/* Portfolio preview */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-8 py-20">
-          <div className="border-b border-gray-200 pb-10">
-            <div className="flex items-center gap-3">
-              <div className="h-px w-8 bg-amber-500" />
-              <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
-                Portofolio
-              </p>
-            </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
-              Yang pernah kami kerjakan
-            </h2>
-            <p className="mt-3 max-w-lg text-sm leading-7 text-gray-500">
-              Dari UMKM hingga event skala nasional — setiap proyek dikerjakan
-              dengan pendekatan yang sama: jelas, rapi, dan siap konversi.
-            </p>
+      <section className="section-projects">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl"><p className="section-kicker">Dipakai di dunia nyata</p><h2 className="section-title mt-4 text-balance">Solusi digital untuk berbagai bisnis lokal.</h2></div>
+            <Link href="/projects" className="text-link">Lihat semua project <span>→</span></Link>
           </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Bapperida Papua",
-                tag: "Pemerintahan",
-              },
-              {
-                title: "Malabar Trail Run",
-                tag: "Event & Ticketing",
-              },
-              {
-                title: "Roxgym",
-                tag: "Fitness & Wellness",
-              },
-              {
-                title: "NSC Bantu Perizinan",
-                tag: "Jasa & Konsultasi",
-              },
-              {
-                title: "Million Candles",
-                tag: "E-commerce",
-              },
-              {
-                title: "Global Inti Sekawan",
-                tag: "Enterprise",
-              },
-            ].map((item) => (
-              <Link
-                key={item.title}
-                href="/portofolio"
-                className="group border border-gray-200 p-7 transition-all hover:border-amber-500 hover:shadow-lg"
-              >
-                <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
-                  {item.tag}
-                </p>
-                <h3 className="mt-3 text-lg font-extrabold text-gray-900 group-hover:text-amber-700 transition-colors">
-                  {item.title}
-                </h3>
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            {showcase.map((project) => (
+              <Link href={`/projects/${project.id}`} key={project.id} className={`project-card ${project.color}`}>
+                <div><p>{project.category}</p><h3>{project.name}</h3></div>
+                <div className="project-image"><Image src={project.image} alt={`${project.name} untuk bisnis Jogja`} fill sizes="(max-width: 1024px) 92vw, 30vw" /></div>
+                <span className="project-arrow">↗</span>
               </Link>
             ))}
           </div>
-          <div className="mt-10 text-center">
-            <Link
-              href="/portofolio"
-              className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-gray-900 uppercase hover:text-amber-700 transition-colors"
-            >
-              Lihat semua portofolio
-              <span>→</span>
-            </Link>
+        </div>
+      </section>
+
+      <section className="section-dark">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+          <div className="mx-auto max-w-3xl text-center"><p className="section-kicker text-violet-300">Prosesnya gampang</p><h2 className="section-title mt-4 text-balance text-white">Dari ngobrol sampai online, kami dampingi.</h2><p className="section-copy mx-auto mt-6 max-w-2xl text-slate-300">Tidak perlu pusing istilah teknis. Anda fokus ke bisnis, kami urus websitenya.</p></div>
+          <div className="process-grid mt-16">
+            {process.map((item) => <article key={item.step}><span>{item.step}</span><div className="process-icon">{item.step === "01" ? "✦" : item.step === "02" ? "⌁" : "✓"}</div><h3>{item.title}</h3><p>{item.body}</p></article>)}
+          </div>
+          <div className="mt-14 text-center"><Link href={site.whatsapp} className="button-primary h-14 px-8 text-base">Mulai Konsultasi <span>→</span></Link></div>
+        </div>
+      </section>
+
+      <section className="section-light">
+        <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
+          <div className="quote-card">
+            <div className="quote-stars">★★★★★</div>
+            <blockquote>“Prosesnya cepat, komunikasinya enak, dan hasil website-nya jauh lebih profesional dari yang kami bayangkan.”</blockquote>
+            <div className="quote-author"><span>RN</span><div><strong>Pemilik bisnis lokal</strong><small>Sleman, Yogyakarta</small></div></div>
           </div>
         </div>
       </section>
 
-      {/* Testimonial highlight */}
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-7xl px-8 py-20">
-          <div className="border-b border-gray-200 pb-10">
-            <div className="flex items-center gap-3">
-              <div className="h-px w-8 bg-amber-500" />
-              <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
-                Testimoni
-              </p>
-            </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
-              Kata mereka yang sudah pakai
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                quote: "Prosesnya cepat, hasilnya rapi. Saya langsung dapat pesanan baru setelah website tayang.",
-                author: "Pemilik Laundry, Sleman",
-              },
-              {
-                quote: "Akhirnya punya website yang gak ribet. Tim-nya sabar banget ngajarin saya kelola sendiri.",
-                author: "Pemilik Gym, Depok",
-              },
-              {
-                quote: "Dari diskusi pertama sampai tayang cuma 5 hari. Harga jelas, revisi cepat. Recommended!",
-                author: "Event Organizer, Jogja",
-              },
-            ].map((item) => (
-              <div key={item.author} className="bg-white border border-gray-200 p-7">
-                <p className="text-4xl font-serif text-amber-500 leading-none">&ldquo;</p>
-                <p className="mt-2 text-sm leading-7 text-gray-600 italic">
-                  {item.quote}
-                </p>
-                <div className="mt-6 h-px w-6 bg-amber-500" />
-                <p className="mt-4 text-xs font-bold tracking-wide text-gray-900">
-                  {item.author}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Link
-              href="/testimoni"
-              className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-gray-900 uppercase hover:text-amber-700 transition-colors"
-            >
-              Baca testimoni lengkap
-              <span>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ preview */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-8 py-20">
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-3">
-              <div className="h-px w-8 bg-amber-500" />
-              <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
-                FAQ
-              </p>
-              <div className="h-px w-8 bg-amber-500" />
-            </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
-              Pertanyaan umum
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-4">
-            {[
-              {
-                q: "Berapa lama proses pembuatan website?",
-                a: "Rata-rata 5-10 hari kerja tergantung kompleksitas halaman dan konten yang perlu disiapkan.",
-              },
-              {
-                q: "Apakah domain dan hosting sudah termasuk?",
-                a: "Ya, tahun pertama domain dan hosting sudah termasuk dalam paket. Perpanjangan tahun berikutnya dikenakan biaya terpisah.",
-              },
-              {
-                q: "Apakah bisa minta revisi setelah website tayang?",
-                a: "Setiap paket sudah termasuk 3-5 kali revisi. Revisi tambahan di luar paket dikenakan biaya sesuai kesepakatan.",
-              },
-              {
-                q: "Website saya bisa diurus sendiri setelah jadi?",
-                a: "Bisa. Kami berikan akses penuh ke dashboard admin dan panduan singkat. Tidak ada lock-in vendor.",
-              },
-            ].map((item) => (
-              <details
-                key={item.q}
-                className="group border border-gray-200 p-5 open:border-amber-500 transition-colors"
-              >
-                <summary className="flex cursor-pointer items-center justify-between gap-4 text-sm font-bold text-gray-900 list-none">
-                  {item.q}
-                  <span className="shrink-0 text-xs text-gray-400 group-open:rotate-180 transition-transform">
-                    ▼
-                  </span>
-                </summary>
-                <p className="mt-4 text-sm leading-7 text-gray-500 border-t border-gray-100 pt-4">
-                  {item.a}
-                </p>
-              </details>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Link
-              href="/faq"
-              className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-gray-900 uppercase hover:text-amber-700 transition-colors"
-            >
-              Lihat semua FAQ
-              <span>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-7xl px-8 py-20">
-          <div className="border-b border-gray-200 pb-10">
-            <div className="flex items-center gap-3">
-              <div className="h-px w-8 bg-amber-500" />
-              <p className="text-xs font-bold tracking-widest text-amber-600 uppercase">
-                Investasi
-              </p>
-            </div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
-              Paket populer
-            </h2>
-            <p className="mt-3 max-w-lg text-sm leading-7 text-gray-500">
-              Mulai dari sederhana sampai siap scale. Harga final mengikuti
-              kebutuhan halaman, fitur, dan materi.
-            </p>
-          </div>
-          <div className="mt-12 grid border border-gray-200 md:grid-cols-3">
-            {pricing.map((plan, i) => (
-              <div
-                key={plan.name}
-                className={`p-8 ${
-                  i < pricing.length - 1
-                    ? "border-b border-gray-200 md:border-b-0 md:border-r"
-                    : ""
-                } ${i === 1 ? "bg-gray-950 text-white" : "bg-white"}`}
-              >
-                <p
-                  className={`text-xs font-bold tracking-widest uppercase ${
-                    i === 1 ? "text-amber-400" : "text-amber-600"
-                  }`}
-                >
-                  Paket {plan.name}
-                </p>
-                <p
-                  className={`mt-4 text-4xl font-extrabold ${
-                    i === 1 ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  {plan.price}
-                </p>
-                <p
-                  className={`mt-2 text-sm ${
-                    i === 1 ? "text-gray-400" : "text-gray-500"
-                  }`}
-                >
-                  {plan.fit}
-                </p>
-                <div
-                  className={`mt-6 border-t pt-6 ${
-                    i === 1 ? "border-gray-700" : "border-gray-100"
-                  }`}
-                >
-                  <ul className="grid gap-3">
-                    {plan.features.slice(0, 5).map((feature) => (
-                      <li
-                        key={feature}
-                        className={`flex items-start gap-2 text-sm ${
-                          i === 1 ? "text-gray-300" : "text-gray-500"
-                        }`}
-                      >
-                        <span className="mt-2 h-1 w-1 shrink-0 bg-amber-500" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-8">
-                  <Button
-                    href={site.whatsapp}
-                    label="Tanya paket ini"
-                    variant={i === 1 ? "solid" : "outline"}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-amber-500">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-8 py-16 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-xs font-bold tracking-widest text-amber-900 uppercase">
-              Langkah berikutnya
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-gray-950 md:text-4xl">
-              Siap ngobrol soal website bisnis Anda?
-            </h2>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-amber-900">
-              Ceritakan usaha, target pelanggan, dan halaman yang dibutuhkan.
-              Kami bantu susun langkah paling masuk akal.
-            </p>
-          </div>
-          <div className="shrink-0">
-            <Link
-              href={site.whatsapp}
-              className="inline-flex h-12 items-center gap-3 bg-gray-950 px-8 text-xs font-bold tracking-widest text-white uppercase transition-opacity hover:opacity-80"
-            >
-              Mulai Konsultasi WhatsApp
-              <span>→</span>
-            </Link>
-          </div>
+      <section className="cta-section">
+        <div className="cta-orb cta-orb-one" /><div className="cta-orb cta-orb-two" />
+        <div className="relative mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
+          <p className="section-kicker text-violet-200">Punya usaha di Jogja?</p>
+          <h2 className="mt-4 text-balance text-4xl font-extrabold tracking-[-0.04em] text-white md:text-6xl">Yuk, bikin bisnis Anda lebih mudah ditemukan.</h2>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-violet-100">Ceritakan kebutuhan Anda. Konsultasi awal gratis, tanpa jargon teknis dan tanpa komitmen.</p>
+          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row"><Link href={site.whatsapp} className="button-white h-14 px-8 text-base">Chat via WhatsApp <span>→</span></Link><Link href="/harga-paket" className="button-ghost h-14 px-8 text-base">Lihat Paket Harga</Link></div>
         </div>
       </section>
     </>
