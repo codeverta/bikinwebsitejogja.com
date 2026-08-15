@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Card, PageHero, Section } from "../../components";
+import { Card, LocalServiceJsonLd, PageHero, Section } from "../../components";
+import { createMetadata } from "../../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Jasa Website Toko Online Jogja",
   description:
-    "Bikin website toko online Jogja dengan katalog produk, order WhatsApp, dan opsi payment gateway untuk UMKM.",
-};
+    "Jasa pembuatan toko online Jogja untuk UMKM, lengkap dengan katalog produk, order WhatsApp, dan opsi payment gateway.",
+  path: "/layanan/toko-online",
+  keywords: ["jasa toko online Jogja", "website UMKM Bantul", "katalog online Yogyakarta"],
+});
 
 export default function OnlineStorePage() {
   return (
     <>
+      <LocalServiceJsonLd name="Jasa Website Toko Online Jogja" description="Pembuatan toko online dan katalog produk untuk UMKM di Daerah Istimewa Yogyakarta." path="/layanan/toko-online" />
       <PageHero
         eyebrow="Layanan"
         title="Toko online sederhana untuk menampilkan produk dan menerima pesanan lebih rapi."

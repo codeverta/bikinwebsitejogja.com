@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button, Card, PageHero, Section } from "../components";
 import { site } from "../site-data";
+import { createMetadata } from "../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Kontak Bikin Website Jogja | Konsultasi Gratis",
   description:
-    "Hubungi Bikin Website Jogja untuk konsultasi gratis via WhatsApp. Melayani Sleman, Bantul, Kota Jogja, dan sekitarnya.",
-};
+    "Hubungi jasa pembuatan website Jogja untuk konsultasi gratis via WhatsApp. Melayani Kota Yogyakarta, Sleman, Bantul, Kulon Progo, dan Gunungkidul.",
+  path: "/hubungi-kami",
+  keywords: ["kontak jasa website Jogja", "konsultasi website Jogja", "web developer Sleman"],
+});
 
 export default function ContactPage() {
   return (

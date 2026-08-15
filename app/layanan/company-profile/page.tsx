@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Card, PageHero, Section } from "../../components";
+import { Card, LocalServiceJsonLd, PageHero, Section } from "../../components";
+import { createMetadata } from "../../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Jasa Website Company Profile Jogja",
   description:
-    "Bikin website company profile untuk bisnis Jogja. Profil usaha, layanan, kontak, dan SEO lokal dalam satu website profesional.",
-};
+    "Jasa website company profile profesional untuk bisnis di Jogja, Sleman, Bantul, Kulon Progo, dan Gunungkidul, lengkap dengan kontak dan SEO lokal.",
+  path: "/layanan/company-profile",
+  keywords: ["jasa company profile Jogja", "website perusahaan Jogja", "website profil usaha Sleman"],
+});
 
 export default function CompanyProfilePage() {
   return (
     <>
+      <LocalServiceJsonLd name="Jasa Website Company Profile Jogja" description="Pembuatan website company profile profesional untuk bisnis lokal di Daerah Istimewa Yogyakarta." path="/layanan/company-profile" />
       <PageHero
         eyebrow="Layanan"
         title="Website company profile untuk bisnis yang ingin terlihat lebih dipercaya."

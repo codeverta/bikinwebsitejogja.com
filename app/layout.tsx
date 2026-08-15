@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Footer, Header } from "./components";
 import "./globals.css";
 import { site } from "./site-data";
+import { coreLocalKeywords } from "./seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -10,9 +11,21 @@ export const metadata: Metadata = {
     template: "%s | Bikin Website Jogja",
   },
   description:
-    "Jasa bikin website Jogja untuk UMKM dan bisnis lokal. Desain profesional, SEO lokal, dan siap mendatangkan chat WhatsApp.",
-  alternates: {
-    canonical: "/",
+    "Jasa pembuatan website Jogja untuk UMKM dan bisnis di Kota Yogyakarta, Sleman, Bantul, Kulon Progo, dan Gunungkidul.",
+  applicationName: site.name,
+  authors: [{ name: site.company, url: site.url }],
+  creator: site.company,
+  publisher: site.company,
+  category: "Jasa Pembuatan Website",
+  keywords: [...coreLocalKeywords],
+  referrer: "origin-when-cross-origin",
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
     title: "Jasa Bikin Website Jogja untuk Bisnis Lokal",
@@ -27,6 +40,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   twitter: { card: "summary_large_image", title: "Jasa Bikin Website Jogja", description: "Website profesional untuk bisnis lokal Yogyakarta.", images: ["/og-image.png"] },
 };
@@ -37,10 +57,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" data-scroll-behavior="smooth">
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-      <link rel="manifest" href="/site.webmanifest"></link>
       <body>
         <Header />
         <main>{children}</main>

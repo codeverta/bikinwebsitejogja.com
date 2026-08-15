@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Card, PageHero, Section } from "../components";
+import { createMetadata } from "../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Tentang Bikin Website Jogja | PT Zenit",
   description:
-    "Kenali Bikin Website Jogja dari PT Zenit Technology Solution, partner digital ramah untuk UMKM Yogyakarta.",
-};
+    "Kenali Bikin Website Jogja dari PT Zenit Technology Solution, partner digital untuk UMKM di Kota Jogja, Sleman, Bantul, Kulon Progo, dan Gunungkidul.",
+  path: "/tentang-kami",
+  keywords: ["web developer Jogja", "perusahaan IT Jogja", "PT Zenit Technology Solution"],
+});
 
 export default function AboutPage() {
   return (

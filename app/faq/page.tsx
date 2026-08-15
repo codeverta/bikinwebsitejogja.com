@@ -1,16 +1,30 @@
 import type { Metadata } from "next";
-import { PageHero, Section } from "../components";
+import { JsonLd, PageHero, Section } from "../components";
 import { faqs } from "../site-data";
+import { createMetadata } from "../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "FAQ Bikin Website Jogja",
   description:
-    "Pertanyaan umum tentang jasa pembuatan website di Jogja, proses kerja, harga, domain, hosting, revisi, dan SEO.",
-};
+    "Jawaban pertanyaan umum jasa pembuatan website Jogja: harga, proses, domain, hosting, revisi, maintenance, dan Local SEO.",
+  path: "/faq",
+  keywords: ["FAQ website Jogja", "biaya dan proses website Jogja"],
+});
 
 export default function FaqPage() {
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: { "@type": "Answer", text: faq.answer },
+          })),
+        }}
+      />
       <PageHero
         eyebrow="FAQ"
         title="Pertanyaan yang sering muncul sebelum bikin website."

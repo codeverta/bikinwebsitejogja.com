@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import projectData from "../../../projects.json";
 import { site } from "../../site-data";
+import { createMetadata } from "../../seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -15,16 +16,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = projectData.projects.find(({ product }) => product.id === slug);
   if (!project) return {};
-  return {
+  return createMetadata({
     title: `${project.product.name} untuk Bisnis Jogja`,
     description: `${project.product.description} Solusi dapat disesuaikan untuk bisnis di Yogyakarta.`,
-    alternates: { canonical: `/projects/${slug}` },
-    openGraph: {
-      title: `${project.product.name} | Project Jogja`,
-      description: project.product.description,
-      images: [project.product.image],
-    },
-  };
+    path: `/projects/${slug}`,
+    image: project.product.image,
+    keywords: [
+      `${project.product.name} Jogja`,
+      `${project.product.category} Yogyakarta`,
+      "aplikasi bisnis Jogja",
+    ],
+  });
 }
 
 export default async function ProjectDetailPage({ params }: Props) {

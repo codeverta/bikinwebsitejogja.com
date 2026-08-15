@@ -7,7 +7,9 @@ export const site = {
   email: "contact@codeverta.com",
   address:
     "Yogyakarta, melayani Sleman, Bantul, Gunungkidul, Kulon Progo, dan Kota Jogja",
-  mapUrl: "https://maps.app.goo.gl/SwThQAwLRoemLLpAA",
+  mapUrl: "https://maps.app.goo.gl/KSoFBShwqQQTbBJ59",
+  latitude: -7.7248765,
+  longitude: 110.3979139,
 };
 
 export const navigation = [

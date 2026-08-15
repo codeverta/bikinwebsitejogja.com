@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { navigation, site } from "./site-data";
 import { MegaMenu } from "./mega-menu";
+import { localAreas } from "./seo";
+import { WhatsAppIcon } from "./icons";
 
 export function Header() {
   return (
@@ -17,7 +19,7 @@ export function Header() {
           <Link href="/blog" className="nav-link">Blog</Link>
           <Link href="/tentang-kami" className="nav-link">Tentang</Link>
         </nav>
-        <Link href={site.whatsapp} className="site-cta h-10 px-5 text-xs">Konsultasi Gratis <span className="hidden sm:inline">→</span></Link>
+        <Link href={site.whatsapp} className="site-cta h-10 px-5 text-xs"><WhatsAppIcon /> WhatsApp Sekarang</Link>
       </div>
     </header>
   );
@@ -31,7 +33,7 @@ export function Footer() {
         <div><p className="footer-heading text-sm font-bold">Jelajahi</p><div className="mt-5 grid gap-3 text-sm">{navigation.map((item)=><Link key={item.href} href={item.href} className="footer-link">{item.label}</Link>)}</div></div>
         <div><p className="footer-heading text-sm font-bold">Informasi</p><div className="mt-5 grid gap-3 text-sm"><Link href="/portofolio" className="footer-link">Portofolio</Link><Link href="/faq" className="footer-link">FAQ</Link><Link href="/kebijakan-privasi" className="footer-link">Kebijakan Privasi</Link><Link href="/syarat-ketentuan" className="footer-link">Syarat & Ketentuan</Link></div></div>
       </div>
-      <div className="border-t border-white/10"><div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-5 text-xs sm:flex-row sm:justify-between"><p>© {new Date().getFullYear()} Bikin Website Jogja.</p><p>Bagian dari PT Zenit Technology Solution</p></div></div>
+      <div className="border-t border-white/10"><div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-5 text-xs sm:flex-row sm:justify-between"><p>© {new Date().getFullYear()} Bikin Website Jogja.</p><p>Bagian dari <Link href="https://codeverta.com" className="footer-link font-semibold" target="_blank" rel="noreferrer">PT Zenit Technology Solution</Link></p></div></div>
     </footer>
   );
 }
@@ -44,3 +46,30 @@ export function Section({title,description,children,dark=false}:{title:string;de
 
 export function Card({title,children,index}:{title:string;children:React.ReactNode;index?:number}) { return <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">{index!==undefined&&<p className="mb-4 text-xs font-bold text-violet-500">{String(index+1).padStart(2,"0")}</p>}<h3 className="text-lg font-extrabold">{title}</h3><div className="mt-3 text-sm leading-7 text-slate-600">{children}</div></article>; }
 export function JsonLd({data}:{data:object}) { return <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(data)}}/>; }
+
+export function LocalServiceJsonLd({name,description,path}:{name:string;description:string;path:string}) {
+  const url = `${site.url}${path}`;
+  return <>
+    <JsonLd data={{
+      "@context":"https://schema.org",
+      "@type":"Service",
+      "@id":`${url}/#service`,
+      name,
+      description,
+      url,
+      provider:{"@id":`${site.url}/#business`},
+      serviceType:name,
+      areaServed:localAreas.map((area)=>({"@type":area==="Kota Yogyakarta"?"City":"AdministrativeArea",name:area})),
+      availableChannel:{"@type":"ServiceChannel",serviceUrl:url,servicePhone:site.phone},
+    }}/>
+    <JsonLd data={{
+      "@context":"https://schema.org",
+      "@type":"BreadcrumbList",
+      itemListElement:[
+        {"@type":"ListItem",position:1,name:"Beranda",item:site.url},
+        {"@type":"ListItem",position:2,name:"Layanan",item:`${site.url}/#layanan`},
+        {"@type":"ListItem",position:3,name,item:url},
+      ],
+    }}/>
+  </>;
+}

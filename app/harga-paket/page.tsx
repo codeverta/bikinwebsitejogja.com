@@ -1,29 +1,43 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Button, Section } from "../components";
+import { Button, JsonLd, Section } from "../components";
 import { pricing, site } from "../site-data";
-import { PageHeroCarousel } from "../page-hero-carousel";
+import { createMetadata } from "../seo";
 
-const pricingSlides = [
-  { image: "/assets/property-listing/preview.png", label: "PAKET BASIC", title: "Website profesional untuk mulai dikenal" },
-  { image: "/assets/e-commerce/landing-page.png", label: "PAKET PRO", title: "Website lengkap yang siap dipromosikan" },
-  { image: "/assets/erp/homepage.png", label: "PAKET BISNIS", title: "Sistem khusus untuk operasional yang lebih besar" },
-];
-
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Harga Paket Website Jogja | Basic, Pro, Bisnis",
   description:
-    "Bandingkan paket website Basic, Pro, dan Bisnis untuk UMKM Jogja. Pilih sesuai kebutuhan dan anggaran.",
-};
+    "Harga jasa pembuatan website Jogja mulai Rp1,5 juta. Bandingkan paket Basic, Pro, dan Bisnis untuk UMKM di Sleman, Bantul, dan Yogyakarta.",
+  path: "/harga-paket",
+  keywords: ["harga website Jogja", "biaya bikin website Jogja", "paket website UMKM Jogja"],
+});
 
 export default function PricingPage() {
   return (
     <>
+      <JsonLd data={{
+        "@context":"https://schema.org",
+        "@type":"OfferCatalog",
+        name:"Paket Jasa Pembuatan Website Jogja",
+        url:`${site.url}/harga-paket`,
+        itemListElement:pricing.map((plan,index)=>({
+          "@type":"Offer",
+          position:index+1,
+          name:`Paket Website ${plan.name}`,
+          priceCurrency:"IDR",
+          price:[1500000,3500000,6500000][index],
+          availability:"https://schema.org/InStock",
+          url:`${site.url}/harga-paket#paket`,
+          itemOffered:{"@type":"Service",name:`Jasa Pembuatan Website ${plan.name}`,provider:{"@id":`${site.url}/#business`}},
+        })),
+      }}/>
       <section className="pricing-hero">
         <div className="pricing-orb pricing-orb-one" /><div className="pricing-orb pricing-orb-two" />
-        <div className="relative mx-auto max-w-6xl px-6 py-20 text-center md:py-28">
-          <div className="mx-auto max-w-4xl"><span className="pricing-badge">PAKET WEBSITE JOGJA · MULAI RP1,5 JUTA</span><h1 className="mt-7 text-balance text-5xl font-extrabold leading-[1.04] tracking-[-.05em] text-white md:text-7xl">Harga jelas. Website siap bekerja untuk bisnis.</h1><p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-violet-100">Pilih paket awal yang paling dekat dengan kebutuhan Anda. Lingkup final tetap fleksibel setelah konsultasi.</p><div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row"><Link href="#paket" className="button-white h-14 px-8">Bandingkan Paket ↓</Link><Link href={site.whatsapp} className="button-ghost h-14 px-8">Tanya via WhatsApp →</Link></div></div>
-          <div className="mx-auto mt-14 max-w-4xl"><PageHeroCarousel slides={pricingSlides} tone="pricing" /></div>
+        <div className="relative mx-auto max-w-5xl px-6 py-24 text-center md:py-32">
+          <span className="pricing-badge">PAKET WEBSITE JOGJA · MULAI RP1,5 JUTA</span>
+          <h1 className="mt-7 text-balance text-5xl font-extrabold leading-[1.04] tracking-[-.05em] text-white md:text-7xl">Harga jelas. Website siap bekerja untuk bisnis.</h1>
+          <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-violet-100">Pilih paket awal yang paling dekat dengan kebutuhan Anda. Lingkup final tetap fleksibel setelah konsultasi.</p>
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row"><Link href="#paket" className="button-white h-14 px-8">Bandingkan Paket ↓</Link><Link href={site.whatsapp} className="button-ghost h-14 px-8">Tanya via WhatsApp →</Link></div>
         </div>
       </section>
       <div id="paket"><Section title="Tabel paket harga" description="Harga berikut adalah estimasi awal. Setelah konsultasi, kami susun ruang lingkup final agar tidak ada biaya yang samar.">

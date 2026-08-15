@@ -17,6 +17,8 @@ export type BlogPost = {
   metaDescription: string;
   tags: string[];
   intro: string;
+  contentMarkdown?: string;
+  coverImage?: string;
   sections: BlogSection[];
   faq: Array<{ question: string; answer: string }>;
   cta: string;
@@ -41,6 +43,40 @@ export const blogPosts: BlogPost[] = [
     tags: ["UMKM Jogja", "Harga Website", "Website Bisnis"],
     intro:
       "Banyak pemilik usaha di Jogja ingin punya website, tetapi bingung memulai karena harga di pasar terlihat sangat beragam. Ada yang murah sekali, ada yang terlihat mahal, dan ada juga yang tidak menjelaskan apa saja yang termasuk. Artikel ini membantu Anda membaca biaya website dengan lebih tenang.",
+    contentMarkdown: `Banyak pemilik usaha di Jogja ingin punya website, tetapi bingung memulai karena harga di pasar terlihat sangat beragam. Ada yang murah sekali, ada yang terlihat mahal, dan ada juga yang tidak menjelaskan apa saja yang termasuk. Artikel ini membantu Anda membaca biaya website dengan lebih tenang.
+
+![Perencanaan biaya website untuk UMKM Jogja](/assets/landing-page/business-owner.jpeg "Perencanaan Biaya & Anggaran Website Bisnis UMKM")
+
+## Komponen biaya utama
+
+Biaya website biasanya bukan hanya biaya desain. Di dalamnya ada perencanaan struktur halaman, penulisan copy, implementasi teknis, domain, hosting, optimasi dasar, dan waktu komunikasi proyek.
+
+Untuk UMKM, yang paling penting adalah memastikan website tidak hanya terlihat bagus, tetapi juga menjawab pertanyaan calon pelanggan: usaha Anda apa, melayani area mana, apa kelebihannya, dan bagaimana cara menghubungi.
+
+![Diskusi dan konsultasi perencanaan pembuatan website](/assets/images/meeting.jpeg "Konsultasi Alur Kebutuhan & Fitur Website")
+
+### Checklist komponen yang perlu dihitung:
+- **Domain**: Untuk alamat resmi website (.com, .co.id, .id).
+- **Hosting**: Untuk menyimpan seluruh data, foto, dan database website.
+- **Desain Responsif**: Agar tampilan rapi dan nyaman dibuka dari HP maupun Laptop.
+- **Copywriting Penawaran**: Menjelaskan keunggulan produk dan profil bisnis Anda.
+- **Local SEO On-Page**: Agar struktur halaman mudah dibaca dan ditemukan di Google Jogja.
+
+## Kenapa harga tiap vendor berbeda?
+
+Perbedaan harga biasanya datang dari kedalaman pekerjaan. Website satu halaman dengan template sederhana tentu berbeda dari website lima halaman yang ditulis khusus, dioptimasi lokal, dan disiapkan untuk campaign iklan.
+
+![Contoh visual tampilan website profesional dan kredibel](/assets/property-listing/preview.png "Tampilan Website Profesional & Responsif")
+
+Harga juga dipengaruhi oleh jumlah revisi, jumlah halaman, integrasi formulir kontak, katalog produk, payment gateway, serta kebutuhan maintenance rutin setelah website resmi tayang.
+
+## Cara memilih paket yang masuk akal
+
+Mulailah dari tujuan bisnis Anda. Jika Anda hanya butuh profil usaha untuk dikirim ke calon pelanggan via WhatsApp, paket **Basic** biasanya sudah sangat cukup. Jika ingin menangkap traffic pencarian Google lokal dan menjelaskan banyak cabang/layanan, paket **Pro** jauh lebih ideal. Jika butuh katalog produk dengan sistem order otomatis, pilih paket **Bisnis**.
+
+![Sistem katalog produk dan dashboard bisnis digital](/assets/products/gym-management.png "Dashboard & Katalog Produk Digital Bisnis")
+
+Jangan hanya membandingkan harga akhir. Bandingkan juga siapa yang menulis kontennya, apakah metadata Google disiapkan, apakah tombol WhatsApp jelas, dan apakah vendor siap mendampingi pengelolaan website setelah selesai dibuat.`,
     sections: [
       {
         heading: "Komponen biaya utama",
@@ -101,6 +137,37 @@ export const blogPosts: BlogPost[] = [
     tags: ["Local SEO", "Google Business Profile", "Bisnis Jogja"],
     intro:
       "Saat orang mencari jasa, tempat makan, klinik, sekolah, atau toko di Jogja, Google sering menjadi pintu pertama. Bisnis yang informasinya lengkap dan konsisten punya peluang lebih besar untuk dipilih.",
+    contentMarkdown: `Saat orang mencari jasa, tempat makan, klinik, sekolah, atau toko di Jogja, Google sering menjadi pintu pertama. Bisnis yang informasinya lengkap dan konsisten punya peluang jauh lebih besar untuk dipilih oleh calon pembeli lokal.
+
+![Suasana kota Jogja dan peta pencarian bisnis lokal](/assets/images/jogja.png "Peluang Bisnis Lokal Ditemukan di Google Jogja")
+
+## Mulai dari Google Business Profile
+
+Google Business Profile membantu bisnis muncul di Google Maps dan pencarian lokal. Pastikan nama bisnis, kategori, alamat, nomor telepon, jam operasional, dan foto terbaru sudah diisi secara lengkap.
+
+Gunakan kategori yang paling dekat dengan layanan utama. Setelah itu, tambahkan layanan pendukung agar mesin pencari memahami seluruh konteks usaha Anda.
+
+![Tampilan lokasi peta bisnis dan profil pencarian lokal](/assets/products/42.png "Optimasi Google Maps & Kata Kunci Bisnis Lokal")
+
+### Langkah utama optimasi profil Google:
+- **Nama Bisnis**: Gunakan nama resmi brand tanpa memaksakan kata kunci berlebihan.
+- **Kontak & WhatsApp**: Pastikan nomor HP aktif dan responsif melayani calon pembeli.
+- **Galeri Foto**: Rutin menambah foto lokasi fisik, produk unggulan, dan suasana pelayanan.
+- **Ulasan Pelanggan**: Ajak pelanggan puas memberikan ulasan positif bintang 5.
+
+## Website sebagai pusat informasi
+
+Media sosial sangat bagus untuk membangun kedekatan harian, tetapi website membantu menyusun informasi secara rapi dan bertahan jangka panjang. Halaman layanan dapat ditulis khusus menargetkan kata kunci pencarian lokal seperti *jasa website Jogja*, *klinik gigi Sleman*, atau *catering Bantul*.
+
+![Tampilan website perusahaan dan profil bisnis profesional](/assets/property-listing/preview.png "Website Sebagai Pusat Informasi dan Konversi Bisnis")
+
+Website juga memberi tempat khusus untuk artikel edukasi, portofolio proyek, FAQ, serta halaman legalitas resmi yang meningkatkan kepercayaan calon pelanggan.
+
+## Konsistensi NAP (Name, Address, Phone)
+
+NAP adalah singkatan dari Name, Address, dan Phone. Data nama, alamat, dan nomor telepon ini harus 100% konsisten di seluruh platform digital Anda: di website, Google Business Profile, media sosial, direktori online, hingga marketplace.
+
+Ketidakkonsistenan data nomor telepon atau alamat dapat membingungkan calon pelanggan dan membuat Google ragu untuk merekomendasikan bisnis Anda di halaman depan.`,
     sections: [
       {
         heading: "Mulai dari Google Business Profile",

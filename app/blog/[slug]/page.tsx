@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogCta, RelatedPosts } from "../blog-components";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "../blog-data";
+import { MarkdownContent } from "../markdown-content";
 import { JsonLd, Section } from "../../components";
 import { site } from "../../site-data";
+import { coreLocalKeywords } from "../../seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -26,9 +28,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.metaTitle,
     description: post.metaDescription,
-    keywords: [post.keyword, ...post.tags],
+    keywords: [post.keyword, ...post.tags, ...coreLocalKeywords],
     alternates: {
-      canonical: `/blog/${post.slug}`,
+      canonical: `${site.url}/blog/${post.slug}`,
+      languages: {
+        "id-ID": `${site.url}/blog/${post.slug}`,
+        "x-default": `${site.url}/blog/${post.slug}`,
+      },
     },
     openGraph: {
       title: post.metaTitle,
@@ -39,6 +45,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       modifiedTime: post.updatedAt,
       authors: [site.company],
       tags: post.tags,
+      siteName: site.name,
+      locale: "id_ID",
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.metaTitle,
+      description: post.metaDescription,
+      images: ["/og-image.png"],
     },
   };
 }
@@ -72,7 +87,13 @@ export default async function BlogDetailPage({ params }: Props) {
           publisher: {
             "@type": "Organization",
             name: site.company,
+            logo: {
+              "@type": "ImageObject",
+              url: `${site.url}/assets/logo-zenit.png`,
+            },
           },
+          image: `${site.url}/og-image.png`,
+          inLanguage: "id-ID",
           mainEntityOfPage: {
             "@type": "WebPage",
             "@id": articleUrl,
@@ -142,29 +163,35 @@ export default async function BlogDetailPage({ params }: Props) {
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="min-w-0">
             <div className="rounded-lg bg-white p-6 text-lg leading-8 text-stone-700 shadow-sm md:p-9">
-              <p className="text-xl leading-9 text-stone-800">{post.intro}</p>
-              {post.sections.map((section) => (
-                <section key={section.heading} className="mt-10">
-                  <h2 className="text-3xl font-bold leading-tight text-stone-950">
-                    {section.heading}
-                  </h2>
-                  <div className="mt-4 grid gap-4">
-                    {section.body.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </div>
-                  {section.list ? (
-                    <ul className="mt-5 grid gap-3 rounded-lg bg-stone-50 p-5">
-                      {section.list.map((item) => (
-                        <li key={item} className="flex gap-3">
-                          <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-emerald-700" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </section>
-              ))}
+              {post.contentMarkdown ? (
+                <MarkdownContent content={post.contentMarkdown} />
+              ) : (
+                <>
+                  <p className="text-xl leading-9 text-stone-800">{post.intro}</p>
+                  {post.sections.map((section) => (
+                    <section key={section.heading} className="mt-10">
+                      <h2 className="text-3xl font-bold leading-tight text-stone-950">
+                        {section.heading}
+                      </h2>
+                      <div className="mt-4 grid gap-4">
+                        {section.body.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                      {section.list ? (
+                        <ul className="mt-5 grid gap-3 rounded-lg bg-stone-50 p-5">
+                          {section.list.map((item) => (
+                            <li key={item} className="flex gap-3">
+                              <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-emerald-700" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </section>
+                  ))}
+                </>
+              )}
 
               <section className="mt-10">
                 <h2 className="text-3xl font-bold text-stone-950">FAQ singkat</h2>

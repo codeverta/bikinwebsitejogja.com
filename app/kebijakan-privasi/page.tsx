@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { PageHero, Section } from "../components";
 import { site } from "../site-data";
+import { createMetadata } from "../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Kebijakan Privasi",
   description:
-    "Draft kebijakan privasi Bikin Website Jogja tentang data klien, cookies, keamanan, dan penggunaan informasi.",
-};
+    "Kebijakan privasi Bikin Website Jogja mengenai data klien, cookies, keamanan, dan penggunaan informasi layanan.",
+  path: "/kebijakan-privasi",
+  keywords: [],
+  includeLocalKeywords: false,
+});
 
 export default function PrivacyPolicyPage() {
   return (

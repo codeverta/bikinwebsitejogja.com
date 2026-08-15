@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { Card, PageHero, Section } from "../components";
+import { createMetadata } from "../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Syarat & Ketentuan",
   description:
     "Syarat dan ketentuan layanan Bikin Website Jogja mencakup ruang lingkup, pembayaran, revisi, dan hak cipta.",
-};
+  path: "/syarat-ketentuan",
+  keywords: [],
+  includeLocalKeywords: false,
+});
 
 export default function TermsPage() {
   return (

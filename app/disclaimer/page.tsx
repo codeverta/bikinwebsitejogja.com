@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { PageHero, Section } from "../components";
+import { createMetadata } from "../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Disclaimer",
   description:
     "Penyangkalan layanan Bikin Website Jogja terkait hasil bisnis, konten klien, dan layanan pihak ketiga.",
-};
+  path: "/disclaimer",
+  keywords: [],
+  includeLocalKeywords: false,
+});
 
 export default function DisclaimerPage() {
   return (

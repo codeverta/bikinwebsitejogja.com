@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Card, PageHero, Section } from "../../components";
+import { Card, LocalServiceJsonLd, PageHero, Section } from "../../components";
+import { createMetadata } from "../../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Jasa Landing Page Promosi Jogja",
   description:
-    "Bikin landing page promosi untuk iklan, event, dan campaign bisnis lokal Jogja dengan copywriting dan CTA WhatsApp.",
-};
+    "Jasa landing page Jogja untuk iklan, event, dan promosi bisnis lokal. Dilengkapi copywriting, desain responsif, dan CTA WhatsApp.",
+  path: "/layanan/landing-page",
+  keywords: ["jasa landing page Jogja", "landing page Sleman", "landing page iklan Yogyakarta"],
+});
 
 export default function LandingPageService() {
   return (
     <>
+      <LocalServiceJsonLd name="Jasa Landing Page Jogja" description="Pembuatan landing page promosi dan iklan untuk bisnis lokal di Daerah Istimewa Yogyakarta." path="/layanan/landing-page" />
       <PageHero
         eyebrow="Layanan"
         title="Landing page promosi yang fokus pada satu tujuan: membuat orang bertindak."

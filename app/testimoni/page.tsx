@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Card, PageHero, Section } from "../components";
+import { createMetadata } from "../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Testimoni Klien Bikin Website Jogja",
   description:
-    "Kumpulan testimoni klien Bikin Website Jogja untuk membangun kepercayaan calon pelanggan lokal.",
-};
+    "Testimoni klien jasa pembuatan website Jogja untuk UMKM, profesional, dan bisnis lokal di wilayah Yogyakarta.",
+  path: "/testimoni",
+  keywords: ["review jasa website Jogja", "testimoni web developer Jogja"],
+});
 
 export default function TestimonialsPage() {
   const testimonials = [

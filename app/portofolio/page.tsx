@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Card, PageHero, Section } from "../components";
+import { createMetadata } from "../seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Portofolio Klien Website Jogja",
   description:
-    "Contoh kategori proyek website untuk UMKM, profesional, dan bisnis lokal di Yogyakarta.",
-};
+    "Portofolio pembuatan website untuk UMKM, profesional, sekolah, kuliner, dan bisnis lokal di Jogja serta wilayah DIY.",
+  path: "/portofolio",
+  keywords: ["portofolio web design Jogja", "contoh website UMKM Jogja"],
+});
 
 export default function PortfolioPage() {
   return (

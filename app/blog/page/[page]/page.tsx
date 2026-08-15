@@ -4,6 +4,7 @@ import { PageHero, Section } from "../../../components";
 import { site } from "../../../site-data";
 import { BlogCard, Pagination } from "../../blog-components";
 import { getPaginatedPosts, getTotalBlogPages } from "../../blog-data";
+import { createMetadata } from "../../../seo";
 
 type Props = {
   params: Promise<{ page: string }>;
@@ -19,14 +20,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { page } = await params;
   const pageNumber = Number(page);
 
-  return {
+  return createMetadata({
     title: `Blog Website UMKM Jogja - Halaman ${pageNumber}`,
     description:
-      "Lanjutan artikel edukasi website, Local SEO, landing page, dan toko online untuk UMKM di Yogyakarta.",
-    alternates: {
-      canonical: `/blog/page/${pageNumber}`,
-    },
-  };
+      `Artikel website, Local SEO, landing page, dan toko online untuk UMKM Jogja—halaman ${pageNumber}.`,
+    path: `/blog/page/${pageNumber}`,
+    keywords: ["artikel website Jogja", "panduan UMKM Yogyakarta"],
+  });
 }
 
 export default async function BlogPaginationPage({ params }: Props) {

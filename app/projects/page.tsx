@@ -2,20 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import projectData from "../../projects.json";
-import { PageHeroCarousel } from "../page-hero-carousel";
+import { createMetadata } from "../seo";
 
-const projectSlides = projectData.projects.slice(0, 5).map(({ product }) => ({
-  image: product.image,
-  label: product.category,
-  title: product.name,
-}));
-
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Project Website & Sistem Bisnis Jogja",
   description:
-    "Lihat project website, POS, ERP, aplikasi bisnis, dan sistem manajemen untuk UMKM serta perusahaan di Jogja.",
-  alternates: { canonical: "/projects" },
-};
+    "Lihat project website, POS, ERP, aplikasi, dan sistem manajemen untuk UMKM serta perusahaan di Jogja dan seluruh Daerah Istimewa Yogyakarta.",
+  path: "/projects",
+  keywords: ["portofolio website Jogja", "aplikasi bisnis Jogja", "software house Jogja"],
+});
 
 export default function ProjectsPage() {
   return (
@@ -23,7 +18,9 @@ export default function ProjectsPage() {
       <section className="projects-hero text-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:py-28">
           <div><p className="section-kicker text-cyan-300">23 project · PT Zenit Technology Solution</p><h1 className="mt-5 max-w-4xl text-balance text-5xl font-extrabold leading-[1.05] tracking-[-.045em] md:text-7xl">Sistem digital yang tumbuh bersama bisnis Jogja.</h1><p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300">Website, POS, ERP, dan aplikasi operasional yang dapat disesuaikan untuk UMKM hingga perusahaan di Yogyakarta.</p><Link href="#daftar-project" className="mt-9 inline-flex font-bold text-cyan-300">Jelajahi project ↓</Link></div>
-          <PageHeroCarousel slides={projectSlides} tone="projects" />
+          <div className="projects-hero-stack">
+            {projectData.projects.slice(0,3).map(({product},index)=><Link href={`/projects/${product.id}`} key={product.id} className={`projects-hero-card card-${index+1}`}><div className="relative h-28 w-36 shrink-0 overflow-hidden rounded-xl"><Image src={product.image} alt={product.name} fill sizes="144px" /></div><div><small>{product.category}</small><strong>{product.name}</strong><span>Lihat detail →</span></div></Link>)}
+          </div>
         </div>
       </section>
 

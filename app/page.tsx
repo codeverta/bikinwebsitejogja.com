@@ -1,9 +1,24 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { JsonLd } from "./components";
 import { site } from "./site-data";
 import projectData from "../projects.json";
 import { HomeHeroCarousel } from "./hero-carousel";
+import { createMetadata, localAreas } from "./seo";
+
+export const metadata: Metadata = createMetadata({
+  title: "Jasa Pembuatan Website Jogja untuk Bisnis Lokal",
+  description:
+    "Jasa bikin website profesional untuk UMKM dan bisnis di Kota Jogja, Sleman, Bantul, Kulon Progo, dan Gunungkidul. Konsultasi gratis via WhatsApp.",
+  path: "/",
+  keywords: [
+    "web design Jogja",
+    "website bisnis lokal Yogyakarta",
+    "jasa website murah Jogja",
+    "developer website Jogja",
+  ],
+});
 
 const trustedBrands = [
   { name: "Universitas Negeri Yogyakarta", image: "/assets/images/uny.png" },
@@ -13,7 +28,6 @@ const trustedBrands = [
   { name: "NSC", image: "/assets/images/nsc.png" },
   { name: "Million Candles", image: "/assets/images/souvenirlilin.png" },
 ];
-
 const featuredIds = [
   "laundry-management-system",
   "coffee-shop-pos-management-system",
@@ -48,20 +62,59 @@ export default function Home() {
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: site.name,
-          legalName: site.company,
-          url: site.url,
-          telephone: site.phone,
-          email: site.email,
-          areaServed: [
-            "Kota Yogyakarta",
-            "Sleman",
-            "Bantul",
-            "Gunungkidul",
-            "Kulon Progo",
+          "@graph": [
+            {
+              "@type": ["ProfessionalService", "LocalBusiness"],
+              "@id": `${site.url}/#business`,
+              name: site.name,
+              legalName: site.company,
+              url: site.url,
+              logo: `${site.url}/assets/logo-zenit.png`,
+              image: `${site.url}/og-image.png`,
+              telephone: site.phone,
+              email: site.email,
+              priceRange: "Rp1.500.000–Rp6.500.000+",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Sleman",
+                addressRegion: "Daerah Istimewa Yogyakarta",
+                addressCountry: "ID",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: site.latitude,
+                longitude: site.longitude,
+              },
+              hasMap: site.mapUrl,
+              areaServed: localAreas.map((area) => ({
+                "@type": area === "Kota Yogyakarta" ? "City" : "AdministrativeArea",
+                name: area,
+              })),
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: site.phone,
+                contactType: "sales",
+                areaServed: "ID",
+                availableLanguage: ["Indonesian"],
+              },
+              knowsAbout: [
+                "Pembuatan website",
+                "Web design",
+                "Local SEO",
+                "Landing page",
+                "Toko online",
+                "Sistem informasi",
+              ],
+            },
+            {
+              "@type": "WebSite",
+              "@id": `${site.url}/#website`,
+              url: site.url,
+              name: site.name,
+              inLanguage: "id-ID",
+              publisher: { "@id": `${site.url}/#business` },
+            },
           ],
-          serviceType: "Jasa pembuatan website untuk bisnis lokal Jogja",
         }}
       />
 
@@ -69,21 +122,26 @@ export default function Home() {
         <div className="hero-glow hero-glow-one" />
         <div className="hero-glow hero-glow-two" />
         <div className="hero-grid" />
-        <div className="relative mx-auto flex min-h-[760px] max-w-7xl flex-col items-center px-6 pb-24 pt-24 text-center md:min-h-[830px] md:pt-32">
+        <div className="relative mx-auto flex max-w-7xl flex-col items-center px-6 pb-8 pt-12 text-center md:pb-10 md:pt-16">
           <Link href="/harga-paket" className="announcement-pill">
             <span>BARU</span>
             Paket website bisnis lokal mulai Rp1,5 juta
             <b>→</b>
           </Link>
-
-          <div className="mt-10 w-full"><HomeHeroCarousel /></div>
+          <div className="mt-8 w-full"><HomeHeroCarousel /></div>
         </div>
       </section>
 
       <section className="logo-strip">
         <p>DIBUAT UNTUK BISNIS LOKAL YANG TERUS TUMBUH</p>
-        <div className="brand-proof-grid" aria-label="Brand dan institusi dalam portofolio kami">
-          {trustedBrands.map((brand) => <div key={brand.name} className="brand-proof-item"><Image src={brand.image} alt={brand.name} width={180} height={70} sizes="150px" /></div>)}
+        <div className="trusted-viewport" aria-label="Brand dan institusi dalam portofolio kami">
+          <div className="trusted-track">
+            {[...trustedBrands, ...trustedBrands].map((brand, index) => (
+              <div className="trusted-logo" key={`${brand.name}-${index}`}>
+                <Image src={brand.image} alt={brand.name} title={brand.name} width={190} height={72} sizes="160px" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -108,13 +166,28 @@ export default function Home() {
             </article>
             <article className="feature-card feature-small feature-purple">
               <span className="feature-icon">⌖</span>
-              <div><p className="section-kicker">SEO lokal</p><h3>Mudah ditemukan orang sekitar Jogja.</h3><p>Struktur website disiapkan untuk pencarian bisnis lokal.</p></div>
-              <div className="search-card"><small>Google</small><p>jasa terdekat di jogja</p><span>Bisnis Anda</span></div>
+              <div className="feature-small-content">
+                <p className="section-kicker">SEO lokal</p>
+                <h3>Mudah ditemukan orang sekitar Jogja.</h3>
+                <p>Struktur website disiapkan untuk pencarian bisnis lokal.</p>
+              </div>
+              <div className="search-card">
+                <small>Google</small>
+                <p>jasa terdekat di jogja</p>
+                <span>Bisnis Anda</span>
+              </div>
             </article>
             <article className="feature-card feature-small feature-mint">
               <span className="feature-icon">◉</span>
-              <div><p className="section-kicker">Siap konversi</p><h3>Pengunjung tahu harus klik ke mana.</h3><p>CTA jelas untuk chat, order, reservasi, atau minta penawaran.</p></div>
-              <div className="chat-card"><span>Halo! Bisa konsultasi dulu?</span><b>Balas via WhatsApp →</b></div>
+              <div className="feature-small-content">
+                <p className="section-kicker">Siap konversi</p>
+                <h3>Pengunjung tahu harus klik ke mana.</h3>
+                <p>CTA jelas untuk chat, order, reservasi, atau minta penawaran.</p>
+              </div>
+              <div className="chat-card">
+                <span>Halo! Bisa konsultasi dulu?</span>
+                <b>Balas via WhatsApp →</b>
+              </div>
             </article>
           </div>
         </div>
@@ -154,6 +227,39 @@ export default function Home() {
             <div className="quote-stars">★★★★★</div>
             <blockquote>“Prosesnya cepat, komunikasinya enak, dan hasil website-nya jauh lebih profesional dari yang kami bayangkan.”</blockquote>
             <div className="quote-author"><span>RN</span><div><strong>Pemilik bisnis lokal</strong><small>Sleman, Yogyakarta</small></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="location-section">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-24 lg:grid-cols-[0.72fr_1.28fr] lg:items-center md:py-32">
+          <div>
+            <p className="section-kicker">Temui kami di Jogja</p>
+            <h2 className="section-title mt-4 text-balance">Ngobrol langsung juga boleh.</h2>
+            <p className="section-copy mt-6 max-w-lg">
+              Kunjungi Codeverta untuk konsultasi website, aplikasi, LMS,
+              sistem informasi, dan kebutuhan IT bisnis Anda.
+            </p>
+            <ul className="service-area-list mt-6" aria-label="Area layanan kami">
+              {localAreas.map((area) => <li key={area}>{area}</li>)}
+            </ul>
+            <Link
+              href="https://maps.app.goo.gl/KSoFBShwqQQTbBJ59"
+              className="map-link mt-8"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Buka di Google Maps <span>↗</span>
+            </Link>
+          </div>
+          <div className="map-frame">
+            <iframe
+              title="Lokasi Codeverta di Google Maps"
+              src="https://www.google.com/maps?q=-7.7248765,110.3979139&z=17&output=embed"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>
